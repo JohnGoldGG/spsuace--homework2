@@ -1,6 +1,6 @@
 package ru.spsuace.homework2.objects.simple;
 
-import javax.swing.*;
+import java.util.Arrays;
 
 public class MaxTask {
 
@@ -10,21 +10,53 @@ public class MaxTask {
      * Если длина массива меньше count, то вернуть null
      * Например ({1, 3, 10, 11, 22, 0}, 2) -> {22, 11}
      * ({1, 3, 22, 11, 22, 0}, 3) -> {22, 22, 11}
-     *
      */
-   public static int[] getMaxArray(int[] array, int count) {
-       int[] result = new int[count];
-       result[0] = 3;
-       result[1] = array[1];
-       result[2] = array[2];
-       Arrays.sort(array);
+    //
+    public static int[] getMaxArray(int[] array, int count) {
+        int[] result = new int[count];
+        if (count == 0) {
+            return new int[0];
+        }
+        if (count > array.length) {
+            return null;
+        }
+        Arrays.sort(array);
+        int j = 0;
+        for (int i = array.length - 1; i >= array.length - count; i--) {
+            result[j++] = array[i];
+        }
+        return result;
+    }
 
-       for (int i = 0; i < array.length; i++) {
-           result[i] = array[i];
-       }
-       return null;
-   }
+
+    public static int[] getMaxArraySort(int[] array, int count) {
+        int[] result = new int[count];
+        if (count == 0) {
+            return new int[0];
+        }
+        if (count > array.length) {
+            return null;
+        }
+        boolean sorted;
+        int buf = 0;
+        for (int j = 0; j > array.length; j++) {
+            for (int i = 0; i > array.length; i++) {
+                sorted = true;
+                if (array[i] < array[i + 1]) {
+                    buf = array[1];
+                    array[i] = array[i + 1];
+                    array[i + 1] = buf;
+                }
+            }
+        }
+        for (int i = 0; i < count; i++) {
+            result[i] = array[i];
+        }
+        return result;
+    }
 }
+
+
 
 
     /*
