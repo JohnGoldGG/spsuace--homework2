@@ -38,11 +38,26 @@ public class ComplexNumber {
         }
     }
 
-    //Вывод числа
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        ComplexNumber other = (ComplexNumber) obj;
+        if (getIm() != other.getIm())
+            return false;
+        if (getRe() != other.getRe())
+            return  false;
+        return true;
+    }
+
+    //Проверки
     public static void main(String[] args) {
         ComplexNumber x = new ComplexNumber(2, 4);
         ComplexNumber y = new ComplexNumber(-2, -3);
-        System.out.println("z1 = " + x + ", z2 = " + y);
+        System.out.println("x = " + x + ", y = " + y);
 
         ComplexNumber a = new ComplexNumber(4, 3);
         System.out.println(a.toString());
@@ -54,6 +69,10 @@ public class ComplexNumber {
         ComplexNumber z;
         z = ComplexNumber.sum(x, y);
         System.out.println("+ :" + z);
+
+        ComplexNumber object1 = new ComplexNumber(3,4);
+        ComplexNumber object2 = object1;
+        System.out.println(object1.equals(object2));
     }
 
 }

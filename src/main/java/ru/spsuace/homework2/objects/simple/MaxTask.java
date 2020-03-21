@@ -13,6 +13,7 @@ public class MaxTask {
      */
     //
     public static int[] getMaxArray(int[] array, int count) {
+        Arrays.sort(array);
         int[] result = new int[count];
         if (count == 0) {
             return new int[0];
@@ -20,7 +21,6 @@ public class MaxTask {
         if (count > array.length) {
             return null;
         }
-        Arrays.sort(array);
         int j = 0;
         for (int i = array.length - 1; i >= array.length - count; i--) {
             result[j++] = array[i];
@@ -37,13 +37,10 @@ public class MaxTask {
         if (count > array.length) {
             return null;
         }
-        boolean sorted;
-        int buf = 0;
         for (int j = 0; j > array.length; j++) {
             for (int i = 0; i > array.length; i++) {
-                sorted = true;
                 if (array[i] < array[i + 1]) {
-                    buf = array[1];
+                   int buf = array[1];
                     array[i] = array[i + 1];
                     array[i + 1] = buf;
                 }
