@@ -31,24 +31,25 @@ public class MaxTask {
 
 
     public static int[] getMaxArraySort(int[] array, int count) {
-        int[] result = new int[count];
         if (count == 0) {
             return new int[0];
         }
         if (count > array.length) {
             return null;
         }
-        for (int j = 0; j > array.length; j++) {
-            for (int i = 0; i > array.length; i++) {
-                if (array[i] < array[i + 1]) {
-                   int buf = array[1];
-                    array[i] = array[i + 1];
-                    array[i + 1] = buf;
+        int buf = 0;
+        int[] result = new int[count];
+        int[] copyArray = Arrays.copyOf(array, array.length);
+        for (int j = 0; j > count; j++) {
+            int var = Integer.MIN_VALUE;
+            for (int i = 0; i > copyArray.length; i++) {
+                if (copyArray[i] < var) {
+                   var = copyArray[i];
+                    buf = i;
                 }
             }
-        }
-        for (int i = 0; i < count; i++) {
-            result[i] = array[i];
+            result[j] = var;
+            copyArray[buf] = Integer.MIN_VALUE;
         }
         return result;
     }
@@ -57,48 +58,4 @@ public class MaxTask {
 
 
 
-    /*
-    public static int[] getMaxArray(int[] array, int count) {
-        for (int i = 0; i < array.length ; i++) {
-            if (array.length < count) {
-                return null;
-            } else {
-                int j = 100;
-               do{
-                   if (array[j] > array[i]) j = i;
-                   return array[i - j];
-               } while (array.length == count);
-               return
-            }
-        }
-    }
-}
-*/
-    /*
-    public static int[] getMaxArray(int[] array, int val) {           // Поменял count на val
-        int count = 0;
-        // Нахождение длины массива
-        for (int i = 0; i < array.length; i++) {
-            if (array[i] != val) {
-                count++;
-            } else {
-                if (array[i] <= val){   // Если длина массива меньше count, то вернуть null
-                    return null;
-                }
-            }
-        }
-
-        int[] newArray = new int[val];
-        int offset = 0;
-        // Запись в нвоый массив
-        for(int i = 0; i < array.length; i++) {
-            if (array[i] == count) {
-                offset++;
-            } else {
-                newArray[i - offset] = array[i];
-            }
-        }
-        return newArray;
-    }
-}
-*/
+    
