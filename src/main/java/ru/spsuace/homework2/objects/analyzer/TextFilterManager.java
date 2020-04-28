@@ -1,6 +1,9 @@
 package ru.spsuace.homework2.objects.analyzer;
 
 
+import java.util.Arrays;
+import java.util.logging.Filter;
+
 /**
  * Задание написать систему фильтрации комментариев.
  * Надо реализовать три типа обязательных фильтров
@@ -28,12 +31,21 @@ package ru.spsuace.homework2.objects.analyzer;
  */
 public class TextFilterManager {
 
+    private final TextAnalyzer[] filters;
+
     /**
      * Для работы с каждым элементом массива, нужно использовать цикл for-each
      * Хочется заметить, что тут мы ничего не знаем, какие конкретно нам объекты переданы, знаем только то,
      * что в них реализован интерфейс TextAnalyzer
      */
     public TextFilterManager(TextAnalyzer[] filters) {
+        this.filters = Arrays.copyOf(filters, filters.length);
+
+        Arrays.sort(this.filters, (t1, t2) -> {
+            int p1 = t1.getFilterType().getPriority();
+            int p2 = t2.getFilterType().getPriority();
+            return Integer.compare(p1, p2);
+        });
 
     }
 
@@ -41,6 +53,12 @@ public class TextFilterManager {
      * Если переменная текст никуда не ссылается, то это означает, что не один фильтр не сработал
      */
     public FilterType analyze(String text) {
-        return null;
+        for (TextAnalyzer filter : filters) {
+            FilterType type   = filter.analyze(text);
+            if (type != null) {
+                return type;
+            }
+        }
+        return FilterType.GOOD;
     }
 }
